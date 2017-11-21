@@ -12,7 +12,7 @@ jobs:
           CHART_REPO: https://github.com/kubernetes/charts
           DOCKER_PROJECT: bitnami
           QUAY_PROJECT: bitnami
-          GCLOUD_PROJECT: bitnami-containers
+          GCLOUD_PROJECT: elemental-kite-183209
 
     steps:
       - checkout
@@ -39,7 +39,7 @@ jobs:
       - run:
           name: Build docker image
           command: |
-            curl -sL https://raw.githubusercontent.com/bitnami/test-infra/master/circle/docker-image-test.sh | bash -
+            curl -sL https://raw.githubusercontent.com/iliacomarov/drupal8-site-kubernetes/master/circle/docker-image-test.sh | bash -
       - save_cache:
           key: cache-{{ .Branch }}-{{ epoch }}
           paths:
@@ -48,9 +48,9 @@ jobs:
           name: Publish docker image
           command: |
             if [ -n "${CIRCLE_TAG}" ]; then
-              curl -sL https://raw.githubusercontent.com/bitnami/test-infra/master/circle/docker-release-image.sh | bash -
+              curl -sL https://raw.githubusercontent.com/iliacomarov/drupal8-site-kubernetes/master/circle/docker-release-image.sh | bash -
             elif [ "${CIRCLE_BRANCH}" == "master" ]; then
-              curl -sL https://raw.githubusercontent.com/bitnami/test-infra/master/circle/docker-development-image.sh | bash -
+              curl -sL https://raw.githubusercontent.com/iliacomarov/drupal8-site-kubernetes/master/circle/docker-development-image.sh | bash -
             fi
 
 workflows:
