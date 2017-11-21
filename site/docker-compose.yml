@@ -1,0 +1,25 @@
+version: '2'
+
+services:
+  mariadb:
+    image: 'iliusa77/mariadb:latest'
+    environment:
+      - ALLOW_EMPTY_PASSWORD=yes
+    volumes:
+      - 'mariadb_data:/drupal8site'
+  drupal:
+    image: 'iliusa77/drupal:latest'
+    labels:
+      kompose.service.type: nodeport
+    ports:
+      - '80:80'
+      - '443:443'
+    volumes:
+      - 'drupal_data:/drupal8site'
+    depends_on:
+      - mariadb
+volumes:
+  mariadb_data:
+    driver: local
+  drupal_data:
+    driver: local
